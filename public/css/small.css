@@ -1,5 +1,5 @@
 @media (max-width: 768px) {
-    /* Container do Header precisa ser relativo para ancorar o menu */
+
     .nav-container {
         position: relative;
         display: flex;
@@ -7,25 +7,24 @@
         align-items: center;
     }
     .menu-toggle {
-        display: flex; /* Mostra o botão no mobile */
+        display: flex; 
         order: 2;
     }
 
     .nav-menu {
-        display: none; /* Escondido */
+        display: none; 
         position: absolute;
-        top: 60px; /* Altere para a altura exata do seu header branco */
+        top: 60px; 
         left: 0;
         width: 100%;
         background: white;
-        z-index: 9999; /* Garante que fique na frente de tudo */
+        z-index: 9999; 
         box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         
     }
 
-    /* Classe que o JavaScript vai adicionar para abrir o menu */
     .nav-menu.active {
-        display: block; /* Aparece ao clicar */
+        display: block; 
     }
 
     .nav-menu ul {

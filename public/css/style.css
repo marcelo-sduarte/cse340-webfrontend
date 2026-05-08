@@ -1,4 +1,4 @@
-/* --- CONFIGURAÇÕES GERAIS --- */
+
 * {
     margin: 0;
     padding: 0;
@@ -21,18 +21,18 @@ li {
     padding: 10px;
     margin-bottom: 15px;
     display: flex;
-    align-items: center; /* Centraliza verticalmente ícone e texto */
-    gap: 20px; /* Espaço entre imagem e texto */
+    align-items: center; 
+    gap: 20px; 
     transition: all 0.3s ease;
     box-shadow: 0 2px 4px rgba(0,0,0,0.02);
 }
 li:hover {
-    transform: translateY(-3px); /* Levanta o card levemente */
+    transform: translateY(-3px); 
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     border-color: #2563eb;
 }
 
-/* Ajuste das imagens dentro dos cards */
+
 li img {
     width: 60px;
     height: 60px;
@@ -42,14 +42,14 @@ li img {
     border-radius: 8px;
 }
 
-/* Estilo para os textos dentro do card */
+
 li strong {
     color: #0f172a;
     font-size: 1.1rem;
-    display: block; /* Faz o nome ficar em cima do e-mail */
+    display: block; 
 }
 
-li span { /* Se você usar uma span para o e-mail ou descrição */
+li span { 
     color: #64748b;
     font-size: 0.95rem;
 }
@@ -58,10 +58,10 @@ body {
     font-family: 'Inter', -apple-system, sans-serif;
     background-color: #f1f5f9;
     color: #1e293b;
-    padding-top: 80px; /* Espaço para o menu fixo */
+    padding-top: 80px; 
 }
 
-/* --- HEADER E NAVEGAÇÃO --- */
+/* --- HEADER AND NAV --- */
 header {
     background: #ffffff;
     width: 100%;
@@ -108,7 +108,7 @@ header {
 }
 
 
-/* Esconder botão hambúrguer no Desktop */
+/* HAMB MENU */
 .menu-toggle {
     display: none;
     flex-direction: column;
@@ -125,7 +125,7 @@ header {
     border-radius: 3px;
 }
 
-/* --- CONTEÚDO IMG--- */
+/* --- HOME IMG--- */
 .main-content {
     margin: 40px auto 10px ;
     max-width: 1000px;
