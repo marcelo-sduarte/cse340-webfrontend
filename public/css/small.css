@@ -20,6 +20,7 @@
         background: white;
         z-index: 9999; /* Garante que fique na frente de tudo */
         box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        
     }
 
     /* Classe que o JavaScript vai adicionar para abrir o menu */
@@ -38,6 +39,10 @@
         display: block;
         padding: 15px;
         border-bottom: 1px solid #eee;
+        text-align: center;
+    }
+   li {
+        flex-direction: column;
         text-align: center;
     }
 }

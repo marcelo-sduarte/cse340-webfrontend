@@ -8,6 +8,51 @@
 h1, h2, li {
     padding: 10px;
 }
+ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+li {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 10px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center; /* Centraliza verticalmente ícone e texto */
+    gap: 20px; /* Espaço entre imagem e texto */
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+li:hover {
+    transform: translateY(-3px); /* Levanta o card levemente */
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    border-color: #2563eb;
+}
+
+/* Ajuste das imagens dentro dos cards */
+li img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    background: #f8fafc;
+    padding: 5px;
+    border-radius: 8px;
+}
+
+/* Estilo para os textos dentro do card */
+li strong {
+    color: #0f172a;
+    font-size: 1.1rem;
+    display: block; /* Faz o nome ficar em cima do e-mail */
+}
+
+li span { /* Se você usar uma span para o e-mail ou descrição */
+    color: #64748b;
+    font-size: 0.95rem;
+}
 
 body {
     font-family: 'Inter', -apple-system, sans-serif;
@@ -62,6 +107,7 @@ header {
     color: #2563eb;
 }
 
+
 /* Esconder botão hambúrguer no Desktop */
 .menu-toggle {
     display: none;
@@ -79,10 +125,10 @@ header {
     border-radius: 3px;
 }
 
-/* --- CONTEÚDO --- */
+/* --- CONTEÚDO IMG--- */
 .main-content {
+    margin: 40px auto 10px ;
     max-width: 1000px;
-    margin: 20px auto;
     background: white;
     padding: 40px;
     border-radius: 12px;
