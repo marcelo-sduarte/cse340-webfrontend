@@ -5,13 +5,22 @@ import path from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// Define the the application environment
+const NODE_ENV = process.env.NODE_ENV?.toLowerCase() || 'production';
+
+// Define the port number the server will listen on
+const PORT = process.env.PORT || 3001;
+
+const app = express();
+
+
 /**
   * Configure Express middleware
   */
 
-
 // Serve static files from the public directory
 app.use(express.static(path.join(__dirname, 'public')));
+
 
 /**
   * Routes
@@ -26,18 +35,6 @@ app.get('/organizations', (req, res) => {
 
 app.get('/projects', (req, res) => {
     res.sendFile(path.join(__dirname, 'src/views/projects.html'));
-});
-
-// Define the the application environment
-const NODE_ENV = process.env.NODE_ENV?.toLowerCase() || 'production';
-
-// Define the port number the server will listen on
-const PORT = process.env.PORT || 3001;
-
-const app = express();
-
-app.get('/', (req, res) => {
-  res.send('Hello from Express!');
 });
 
 app.listen(PORT, () => {
