@@ -2,5 +2,13 @@
     <footer>
         <p>&copy; <%= new Date().getFullYear() %> CSE 340 Service Network.</p>
     </footer>
-</body>
+    <script>
+    const mobileMenu = document.getElementById('mobile-menu');
+    const navMenu = document.querySelector('.nav-menu');
+
+    mobileMenu.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+    });
+    </script>
+    </body>
 </html>

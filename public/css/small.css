@@ -1,0 +1,43 @@
+@media (max-width: 768px) {
+    /* Container do Header precisa ser relativo para ancorar o menu */
+    .nav-container {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .menu-toggle {
+        display: flex; /* Mostra o botão no mobile */
+        order: 2;
+    }
+
+    .nav-menu {
+        display: none; /* Escondido */
+        position: absolute;
+        top: 60px; /* Altere para a altura exata do seu header branco */
+        left: 0;
+        width: 100%;
+        background: white;
+        z-index: 9999; /* Garante que fique na frente de tudo */
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    /* Classe que o JavaScript vai adicionar para abrir o menu */
+    .nav-menu.active {
+        display: block; /* Aparece ao clicar */
+    }
+
+    .nav-menu ul {
+        display: flex;
+        flex-direction: column;
+        list-style: none;
+        padding: 0;
+    }
+
+    .nav-menu li a {
+        display: block;
+        padding: 15px;
+        border-bottom: 1px solid #eee;
+        text-align: center;
+    }
+}
