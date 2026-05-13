@@ -1,6 +1,8 @@
 import express from 'express';
 import { fileURLToPath } from 'url';
 import path from 'path';
+import { testConnection } from './src/models/db.js';
+import { getAllOrganizations } from './src/models/organizations.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -11,15 +13,11 @@ const NODE_ENV = process.env.NODE_ENV?.toLowerCase() || 'production';
 // Define the port number the server will listen on
 const PORT = process.env.PORT || 3001;
 
-const app = express();
-
-
 /**
   * Configure Express middleware
   */
 
-// Serve static files from the public directory
-app.use(express.static(path.join(__dirname, 'public')));
+const app = express();
 
 // Set EJS as the templating engine
 app.set('view engine', 'ejs');
@@ -27,33 +25,22 @@ app.set('view engine', 'ejs');
 // Tell Express where to find your templates
 app.set('views', path.join(__dirname, 'src/views'));
 
-/**
-  * Routes old
-  
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'src/views/home.html'));
-});
+// Serve static files from the public directory
+app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/organizations', (req, res) => {
-    res.sendFile(path.join(__dirname, 'src/views/organizations.html'));
-});
-
-app.get('/projects', (req, res) => {
-    res.sendFile(path.join(__dirname, 'src/views/projects.html'));
-});
+/* 
+  *ROUTES
 */
-
-/**
-  * New Routes using EJS templates
-  * */
 app.get('/', async (req, res) => {
     const title = 'Home';
     res.render('home', { title });
 });
 
 app.get('/organizations', async (req, res) => {
+    const organizations = await getAllOrganizations();
     const title = 'Our Partner Organizations';
-    res.render('organizations', { title });
+
+    res.render('organizations', { title, organizations });
 });
 
 app.get('/projects', async (req, res) => {
@@ -66,7 +53,21 @@ app.get('/categories', async (req, res) => {
     res.render('categories', { title });
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running at http://127.0.0.1:${PORT}`);
-  console.log(`Environment: ${NODE_ENV}`);
+/* 
+This updated code contains a few changes:
+The app.listen function is now an asynchronous function, allowing it to use the await keyword.
+The testConnection function is called before the server starts listening for requests.
+A try-catch block is used, so that if the connection test fails, an error message is logged to the console.
+
+*/
+app.listen(PORT, async () => {
+  try {
+    await testConnection();
+    console.log(`Server is running at http://127.0.0.1:${PORT}`);
+    console.log(`Environment: ${NODE_ENV}`);
+  } catch (error) {
+    console.error('Error connecting to the database:', error);
+  }
 });
+
+
