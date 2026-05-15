@@ -10,9 +10,6 @@ CREATE TABLE organization (
     logo_filename VARCHAR(255) NOT NULL
 );
 
-SELECT * FROM organization
-
-
 -- ========================================
 -- Insert sample data: Organizations
 -- ========================================
@@ -81,4 +78,82 @@ INSERT INTO service_projects (organization_id, title, description, location, pro
 (3, 'Park Litter Cleanup Drive', 'Equipping volunteers to clear trash from walking trails and waterways.', 'Valley Woods Nature Trail', '2026-06-11'),
 (3, 'School Supply Packing', 'Filling 500 backpacks with notebooks, pens, and markers for kids.', 'UnityServe Headquarters', '2026-06-18');
 
-SELECT * FROM service_projects
+-- ========================================
+-- Categories Table
+--Categories have the following requirements:
+-- Each category has a unique ID and a name.
+-- A service project can belong to one or more categories.
+-- A category can be associated with one more more service projects.
+-- The relationship will be many to many
+-- ========================================
+CREATE TABLE category (
+    category_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL UNIQUE
+);
+
+CREATE TABLE project_category (
+    project_id INTEGER NOT NULL,
+    category_id INTEGER NOT NULL,
+    
+    -- Composite Primary Key ensures a project cannot be assigned to the exact same category twice
+    PRIMARY KEY (project_id, category_id),
+    
+    -- Links to the Service Projects table
+    CONSTRAINT fk_project
+        FOREIGN KEY (project_id) 
+        REFERENCES service_projects(project_id) 
+        ON DELETE CASCADE,
+        
+    -- Links to the Category table
+    CONSTRAINT fk_category
+        FOREIGN KEY (category_id) 
+        REFERENCES category(category_id) 
+        ON DELETE CASCADE
+);
+
+-- ========================================
+-- Insert sample data: project category 
+-- ========================================
+INSERT INTO category (name) VALUES 
+('Construction & Infrastructure'),
+('Environment & Agriculture'),
+('Education & Training'),
+('Community Outreach & Support');
+
+-- =========================================================================
+-- ASSOCIATIONS FOR BRIGHTFUTURE BUILDERS (Projects 1 - 5)
+-- Primarily: Construction & Infrastructure (Category 1)
+-- =========================================================================
+INSERT INTO project_category (project_id, category_id) VALUES
+(1, 1), -- Project 1 (Roof Repair) -> Construction
+(2, 1), -- Project 2 (Park Benches) -> Construction
+(2, 2), -- Project 2 (Park Benches) -> also fits Environment!
+(3, 1), -- Project 3 (Wheelchair Ramp) -> Construction
+(4, 1), -- Project 4 (Library Painting) -> Construction
+(4, 3), -- Project 4 (Library Painting) -> also fits Education!
+(5, 1); -- Project 5 (Bus Stop Shelter) -> Construction
+
+-- =========================================================================
+-- ASSOCIATIONS FOR GREENHARVEST GROWERS (Projects 6 - 10)
+-- Primarily: Environment & Agriculture (Category 2)
+-- =========================================================================
+INSERT INTO project_category (project_id, category_id) VALUES
+(6, 2), -- Project 6 (Soil Prep) -> Environment
+(7, 2), -- Project 7 (Greenhouse Assembly) -> Environment
+(7, 1), -- Project 7 (Greenhouse Assembly) -> also fits Construction!
+(8, 2), -- Project 8 (Rain Barrel) -> Environment
+(9, 2), -- Project 9 (Tomato Planting) -> Environment
+(10, 2); -- Project 10 (Compost Workshop) -> Environment
+
+-- =========================================================================
+-- ASSOCIATIONS FOR UNITYSERVE VOLUNTEERS (Projects 11 - 15)
+-- Primarily: Community Outreach / Education (Categories 4 & 3)
+-- =========================================================================
+INSERT INTO project_category (project_id, category_id) VALUES
+(11, 4), -- Project 11 (Food Bank Sorting) -> Community Outreach
+(12, 3), -- Project 12 (Senior Tech Day) -> Education
+(12, 4), -- Project 12 (Senior Tech Day) -> also fits Community Outreach!
+(13, 4), -- Project 13 (Homeless Meal Prep) -> Community Outreach
+(14, 2), -- Project 14 (Park Litter Cleanup) -> Environment
+(14, 4), -- Project 14 (Park Litter Cleanup) -> also fits Community Outreach!
+(15, 3); -- Project 15 (School Supply Packing) -> Education

@@ -4,6 +4,7 @@ import path from 'path';
 import { testConnection } from './src/models/db.js';
 import { getAllOrganizations } from './src/models/organizations.js';
 import { getAllProjecs } from './src/models/projects.js';
+import { getAllCategories } from './src/models/categories.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -51,26 +52,29 @@ app.get('/projects', async (req, res) => {
     res.render('projects', { title, projects });
 });
 
+app.get('/categories', async (req, res) => {
+    const categories = await getAllCategories();
+    const title = 'Service Projects Categories';
+
+    res.render('categories', { title, categories });
+});
+
 /*
 app.get('/projects', async (req, res) => {
     const title = 'Service Projects';
     res.render('projects', { title });
 });
-*/
-
-
 app.get('/categories', async (req, res) => {
     const title = 'Service Projects Categories';
     res.render('categories', { title });
 });
 
-/* 
 This updated code contains a few changes:
 The app.listen function is now an asynchronous function, allowing it to use the await keyword.
 The testConnection function is called before the server starts listening for requests.
 A try-catch block is used, so that if the connection test fails, an error message is logged to the console.
-
 */
+
 app.listen(PORT, async () => {
   try {
     await testConnection();

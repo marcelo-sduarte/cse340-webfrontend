@@ -3,9 +3,9 @@ import db from './db.js'
 This code does the following:
 
 Imports the database connection from the db.js file.
-Defines an asynchronous function getAllOrganizations that queries the database for all organizations.
+Defines an asynchronous function getAllProjects that queries the database for all service projects.
 Returns the rows of the result if successful.
-Exports the getAllOrganizations function so it can be used in other parts of the application.
+Exports the getAllProjects function so it can be used in other parts of the application.
 */
 
 const getAllProjecs = async() => {
