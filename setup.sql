@@ -10,6 +10,9 @@ CREATE TABLE organization (
     logo_filename VARCHAR(255) NOT NULL
 );
 
+SELECT * FROM organization
+
+
 -- ========================================
 -- Insert sample data: Organizations
 -- ========================================
@@ -19,4 +22,63 @@ VALUES
 ('GreenHarvest Growers', 'An urban farming collective promoting food sustainability and education in local neighborhoods.', 'contact@greenharvest.org', 'greenharvest-logo.png'),
 ('UnityServe Volunteers', 'A volunteer coordination group supporting local charities and service initiatives.', 'hello@unityserve.org', 'unityserve-logo.png');
  
-SELECT * FROM organization
+-- ========================================
+-- W02 Team Activity: Database Entities for Service Projects
+-- Each Service Project should have the following information:
+-- Project ID
+-- Organization ID (of the organization that sponsors it)
+-- Title
+-- Description
+-- Location
+-- Date
+-- ========================================
+CREATE TABLE service_projects (
+    project_id SERIAL PRIMARY KEY,
+    organization_id INTEGER NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    location VARCHAR(255),
+    project_date DATE,
+    
+    -- Relationship: Links to the Organizations table
+    CONSTRAINT fk_organization
+      FOREIGN KEY(organization_id) 
+      REFERENCES organization(organization_id)
+      ON DELETE CASCADE
+);
+
+-- ========================================
+-- Insert sample data: service projects
+-- ========================================
+
+-- =========================================================================
+-- ORGANIZATION 1: BrightFuture Builders (5 Projects)
+-- =========================================================================
+INSERT INTO service_projects (organization_id, title, description, location, project_date) VALUES
+(1, 'Community Center Roof Repair', 'Replacing damaged shingles and sealing leaks at the local youth center.', '123 Hope Street, Sector 4', '2026-06-01'),
+(1, 'Park Bench Installation', 'Assembling and installing 10 new eco-friendly benches along the walking trail.', 'Riverside Park', '2026-06-05'),
+(1, 'Wheelchair Ramp Construction', 'Building a wooden access ramp for an elderly community member’s home.', '45 Pine Avenue', '2026-06-12'),
+(1, 'Library Painting Initiative', 'Repainting the children’s reading section with vibrant, welcoming colors.', 'Downtown Public Library', '2026-06-18'),
+(1, 'Bus Stop Shelter Assembly', 'Constructing a new weather shelter at the main commuter bus stop.', 'Maple & 5th Intersection', '2026-06-25');
+
+-- =========================================================================
+-- ORGANIZATION 2: GreenHarvest Growers (5 Projects)
+-- =========================================================================
+INSERT INTO service_projects (organization_id, title, description, location, project_date) VALUES
+(2, 'Spring Soil Preparation', 'Tilling community garden beds and mixing in organic compost.', 'GreenHarvest Main Hub', '2026-05-20'),
+(2, 'Urban Greenhouse Assembly', 'Putting together a polycarbonate greenhouse kit for year-round growing.', 'West End Community Plot', '2026-05-27'),
+(2, 'Rain Barrel Installation', 'Setting up rainwater collection systems on community farm sheds.', 'East Side Urban Farm', '2026-06-03'),
+(2, 'Tomato Planting Drive', 'Planting over 100 heirloom tomato seedlings with local volunteers.', 'South Suburb Greenhouse', '2026-06-10'),
+(2, 'Composting Workshop Setup', 'Building three-tier compost bins and setting up an educational station.', 'Civic Center Back Lawn', '2026-06-17');
+
+-- =========================================================================
+-- ORGANIZATION 3: UnityServe Volunteers (5 Projects)
+-- =========================================================================
+INSERT INTO service_projects (organization_id, title, description, location, project_date) VALUES
+(3, 'Food Bank Sorting Day', 'Organizing and boxing canned food donations for weekly distribution.', 'County Food Bank Hub', '2026-05-22'),
+(3, 'Senior Citizen Technology Day', 'One-on-one tutoring helping seniors navigate tablets and smartphones.', 'Oakridge Retirement Home', '2026-05-29'),
+(3, 'Homeless Shelter Meal Prep', 'Cooking and serving hot dinners to residents at the shelter.', 'St. Jude Outreach Center', '2026-06-04'),
+(3, 'Park Litter Cleanup Drive', 'Equipping volunteers to clear trash from walking trails and waterways.', 'Valley Woods Nature Trail', '2026-06-11'),
+(3, 'School Supply Packing', 'Filling 500 backpacks with notebooks, pens, and markers for kids.', 'UnityServe Headquarters', '2026-06-18');
+
+SELECT * FROM service_projects
